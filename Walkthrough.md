@@ -92,7 +92,7 @@ Num add(Num addend) {
         return result;
     }
 
-    return Num.of(-1);
+    return new Num(Optional.empty());
 }
 ```
 
@@ -107,7 +107,7 @@ Num add(Num addend) {
 >            .reduce(addend, (total, times) -> total.succ());
 >    }
 >    
->    return Num.of(-1);
+>    return new Num(Optional.empty());
 > }
 > ```
 
@@ -142,7 +142,7 @@ Num sub(Num subtrahend) {
 >            .reduce(new Num(subtrahend.opt.map(n)), (total, times) -> total.succ()));
 >    }
 >    
->    return Num.of(-1);
+>    return new Num(Optional.empty());
 > }
 > ```
 
@@ -160,7 +160,7 @@ Num mul(Num multiplier) {
         return result;
     }
 
-    return Num.of(-1);
+    return new Num(Optional.empty());
 }
 ```
 
@@ -173,6 +173,6 @@ Num mul(Num multiplier) {
 >            .reduce(Num.zero(), (total, times) -> multiplier.add(total));
 >    }
 >    
->    return Num.of(-1);
+>    return new Num(Optional.empty());
 > }
 > ```

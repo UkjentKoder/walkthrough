@@ -41,7 +41,7 @@ class Num extends AbstractNum<Integer> {
             return result;
         }
     
-        return Num.of(-1);
+        return new Num(Optional.empty());
     }
 
     public Num sub(Num subtrahend) {
@@ -61,7 +61,7 @@ class Num extends AbstractNum<Integer> {
             return result;
         }
     
-        return Num.of(-1);
+        return new Num(Optional.empty());
     }
 
 }
