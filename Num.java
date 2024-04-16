@@ -30,50 +30,38 @@ class Num extends AbstractNum<Integer> {
         return new Num(this.opt.map(s));
     }
 
-    public Num add(Num otherNum) {
-        if (!otherNum.isValid() || !this.isValid()) {
-            return new Num(Optional.empty());
-        }
-        Num count = Num.zero();
-        Num outputNum = this;
-        while (!count.equals(otherNum)) {
-            outputNum = outputNum.succ();
-            count = count.succ();
-        }
-        return outputNum;
-    }
-
-    public Num sub(Num otherNum) {
-        if (!otherNum.isValid() || !this.isValid()) {
-            return new Num(Optional.empty());
-        }
-        Num count = Num.zero();
-        Num outputNum = new Num(this.opt.map(n));
-        while (!count.equals(otherNum)) {
-            if (outputNum.equals(Num.zero())) {
-                return new Num(Optional.empty());
+    public Num add(Num addend) {
+        if (this.isValid() && addend.isValid()) {
+            Num result = this;
+    
+            for (Num n = Num.zero(); n.equals(addend); n.succ()) {
+                result.succ();
             }
-            outputNum = outputNum.succ();
-            count = count.succ();
+    
+            return result;
         }
-        outputNum = new Num(outputNum.opt.map(n));
-        return outputNum;
+    
+        return Num.of(-1);
     }
 
-    public Num mul(Num otherNum) {
-        if (!otherNum.isValid() || !this.isValid()) {
-            return new Num(Optional.empty());
+    public Num sub(Num subtrahend) {
+        Num s = new Num(subtrahend.opt.map(n));
+        Num result = s.add(this);
+        return new Num(result.opt.filter(valid));
+    }
+
+    public Num mul(Num multiplier) {
+        if (this.isValid() && multiplier.isValid()) {
+            Num result = Num.zero();
+            
+            for (Num n = Num.zero(); n.equals(multiplier); n.succ()) {
+                result.add(this);
+            }
+    
+            return result;
         }
-        if (this.equals(Num.zero()) || otherNum.equals((Num.zero()))) {
-            return Num.zero();
-        }
-        Num count = Num.one();
-        Num outputNum = this;
-        while (!count.equals(otherNum)) {
-            outputNum = outputNum.add(this);
-            count = count.succ();
-        }
-        return outputNum;
+    
+        return Num.of(-1);
     }
 
 }
